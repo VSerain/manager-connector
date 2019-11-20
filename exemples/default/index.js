@@ -1,15 +1,13 @@
-const oliveConnector = require("../build/main");
+const oliveConnector = require("../../build/main");
 
 oliveConnector.config = {
-    "name": "testname",
-    "requireAuth": false,
+    "name": "default",
+    "requireAuth": true,
     "isAuth": false,
 }
 
 oliveConnector.onRequest((requestParams, auth, data, response) => {
-    // console.log(requestParams, auth, data, response);
-
-    response.send({h: 0});
+    response.status(504).send({MSG: "Hello " + auth.user.name});
 });
 
 oliveConnector.onConnectionClose((info) => {

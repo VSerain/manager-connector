@@ -51,7 +51,8 @@ class OliveConnector {
     }
 
     private _onData(request: any) {
-        const response = new ResponseEntity(request.uid, this._onResponseSend.bind(this));
+        const onResponseSend = request.name === "request" ? this._onResponseSend : this._onAuthResponseSend;
+        const response = new ResponseEntity(request.uid, onResponseSend.bind(this) );
         const callbacks = request.name == "request" ? this._callbacksRequest : this._callbacksAuthRequest;
         this._callCallbacks(callbacks, [
                 request.requestParams,
@@ -64,6 +65,10 @@ class OliveConnector {
 
     private _onResponseSend(uid: number, data: any) {
         this._sendRequest("response", data, uid);
+    }
+
+    private _onAuthResponseSend(uid: number, data: any) {
+        this._sendRequest("authResponse", data, uid);
     }
 
     private _onError(error: any) {
