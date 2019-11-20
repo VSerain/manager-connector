@@ -1,0 +1,24 @@
+{
+  "name": "olive-connector",
+  "version": "0.0.1",
+  "description": "A package for connect olive micro service to olive manager",
+  "main": "build/main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "tsc -w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VSerain/olive-manager-connector.git"
+  },
+  "author": "Victor Serain",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/VSerain/olive-manager-connector/issues"
+  },
+  "devDependencies": {
+    "@types/node": "^12.12.6",
+    "typescript": "^3.7.2"
+  },
+  "homepage": "https://github.com/VSerain/olive-manager-connector#readme"
+}
