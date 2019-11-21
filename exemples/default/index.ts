@@ -11,7 +11,9 @@ oliveConnector.onRequest((requestParams, auth, data, response) => {
 });
 
 oliveConnector.onConnectionClose((info) => {
-    
+    setTimeout(() => {
+        process.exit();
+    },1000);
 });
 
 oliveConnector.connectToManager("127.0.0.1", 9999);

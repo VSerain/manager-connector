@@ -13,6 +13,9 @@ oliveConnector.config = {
     "name": "auth",
     "requireAuth": false,
     "isAuth": true,
+    requireAuthRoutes: [
+        ".\/test"
+    ]
 }
 
 oliveConnector.onAuthRequest(({headers}, auth: any, data: any, response: ResponseEntity) => {
@@ -20,12 +23,18 @@ oliveConnector.onAuthRequest(({headers}, auth: any, data: any, response: Respons
 
     const user = userService.getUserByApiKey(headers["api-key"])
     if (!user) return response.status(501).send();
-    
+
     response.send({user, constants: appilcationConstants});
 });
 
+oliveConnector.onRequest((request, auth: any, data: any, response: ResponseEntity) => {
+    response.status(200).send("Hello");
+});
+
 oliveConnector.onConnectionClose((info) => {
-    process.exit();
+    setTimeout(() => {
+        process.exit();
+    },1000);
 });
 
 oliveConnector.connectToManager("127.0.0.1", 9999);
