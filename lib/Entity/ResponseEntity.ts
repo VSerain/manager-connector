@@ -9,11 +9,11 @@ export default class ResponseEntity {
         return this;
     }
 
-    send(data:any) {
+    send(data?:any) {
         if (this._responseSend) {
             throw new Error("The response " + this._uid + " is already sending");
         }
         this._responseSend = true;
-        this.callback(this._uid, { status: this._status ,data});
+        this.callback(this._uid, { headers: {status: this._status}, body: data});
     }
 }

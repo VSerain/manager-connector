@@ -1,5 +1,6 @@
-const oliveConnector = require("../../build/main");
-const userService = require("./user-service");
+import oliveConnector from "../../lib/main"
+import ResponseEntity from "../../lib/Entity/ResponseEntity"
+import userService from "./user-service";
 
 const appilcationConstants = {
     GROUPES : {
@@ -14,10 +15,12 @@ oliveConnector.config = {
     "isAuth": true,
 }
 
-oliveConnector.onAuthRequest(({headers}, auth, data, response) => {
+oliveConnector.onAuthRequest(({headers}, auth: any, data: any, response: ResponseEntity) => {
     if (!headers["api-key"]) return response.status(501).send();
+
     const user = userService.getUserByApiKey(headers["api-key"])
     if (!user) return response.status(501).send();
+    
     response.send({user, constants: appilcationConstants});
 });
 

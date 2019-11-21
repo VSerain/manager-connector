@@ -99,4 +99,4 @@ class OliveConnector {
 }
 
 
-module.exports = new OliveConnector();
+export default new OliveConnector();

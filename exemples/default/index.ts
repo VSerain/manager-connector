@@ -1,4 +1,4 @@
-const oliveConnector = require("../../build/main");
+import oliveConnector from "../../lib/main"
 
 oliveConnector.config = {
     "name": "default",
