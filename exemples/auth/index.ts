@@ -21,7 +21,7 @@ oliveConnector.config = {
 oliveConnector.onAuthRequest(({headers}, auth: any, data: any, response: ResponseEntity) => {
     if (!headers["api-key"]) return response.status(501).send();
 
-    const user = userService.getUserByApiKey(headers["api-key"])
+    const user = userService.getUserByApiKey(headers["api-key"]);
     if (!user) return response.status(501).send();
 
     response.send({user, constants: appilcationConstants});

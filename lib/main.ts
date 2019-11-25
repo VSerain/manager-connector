@@ -1,7 +1,7 @@
 import * as net from "net";
-import { Config, RequestCallback } from "./interfaces";
+import { Config, RequestCallback, ErrorCallback } from "./interfaces";
 import ResponseEntity from "./Entity/ResponseEntity"
-import managerHelper from "./helpers/managerHelper";
+import globalHelper from "./helpers/globalHelper";
 
 class OliveConnector {
     private _config?: Config;
@@ -34,7 +34,7 @@ class OliveConnector {
         this._callbacksAuthRequest.push(callback);
     }
 
-    onConnectionClose(callback: (error: any) => void) {
+    onConnectionClose(callback: ErrorCallback) {
         this._callbacksConnectionClose.push(callback);
     }
 
@@ -42,7 +42,7 @@ class OliveConnector {
         this._socket.connect(port, host, this._socketConnected.bind(this));
     }
 
-    _socketConnected() {
+    private _socketConnected() {
         this.connected = true;
         this._sendRequest("config", this.config, 0);
         this._socketOn("data", (request) => this._onData(request));
@@ -52,7 +52,7 @@ class OliveConnector {
 
     private _onData(request: any) {
         const onResponseSend = request.name === "request" ? this._onResponseSend : this._onAuthResponseSend;
-        const response = new ResponseEntity(request.uid, onResponseSend.bind(this) );
+        const response = new ResponseEntity(request.uid, onResponseSend.bind(this));
         const callbacks = request.name == "request" ? this._callbacksRequest : this._callbacksAuthRequest;
         if (callbacks.length === 0) return response.status(404).send();
         this._callCallbacks(callbacks, [
@@ -92,7 +92,7 @@ class OliveConnector {
 
     private _socketOn(name:string, callback: (data: any) => void) {
         this._socket.on(name,(data: any) => {
-            const objectData = managerHelper.jsonValid(data.toString());
+            const objectData = globalHelper.jsonValid(data.toString());
             if (objectData.error) return;
             callback(objectData);
         });
