@@ -1,13 +1,13 @@
-import oliveConnector from "../../lib/main"
+import oliveConnector from "../../lib/main";
 
 oliveConnector.config = {
-    "name": "default",
-    "requireAuth": true,
-    "isAuth": false,
-}
+    name: "default",
+    requireAuth: true,
+    isAuth: false,
+};
 
 oliveConnector.onRequest((requestParams, auth, data, response) => {
-    response.status(504).send({MSG: "Hello " + auth.user.name});
+    response.status(504).send({ MSG: "Hello " + auth.user.name });
 });
 
 oliveConnector.onConnectionClose((info) => {

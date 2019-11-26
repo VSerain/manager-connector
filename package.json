@@ -20,7 +20,9 @@
   },
   "devDependencies": {
     "@types/node": "^12.12.6",
-    "typescript": "^3.7.2"
+    "typescript": "^3.7.2",
+    "tslint": "^5.20.1",
+    "tslint-config-airbnb-base": "^0.3.0"
   },
   "homepage": "https://github.com/VSerain/olive-manager-connector#readme"
 }
