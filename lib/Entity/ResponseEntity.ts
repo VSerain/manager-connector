@@ -1,7 +1,7 @@
 export default class ResponseEntity {
     private _responseSend: boolean = false;
     private _status: number = 200;
-    
+
     constructor(private _uid: number, private callback: (uid:number, data:any)=> void) {}
 
     status(status:number) {
@@ -14,6 +14,6 @@ export default class ResponseEntity {
             throw new Error("The response " + this._uid + " is already sending");
         }
         this._responseSend = true;
-        this.callback(this._uid, { headers: {status: this._status}, body: data});
+        this.callback(this._uid, { headers: { status: this._status }, body: data });
     }
 }
